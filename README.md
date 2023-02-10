@@ -94,7 +94,7 @@ public class ExampleService : IExampleService
 
 ---
 
-### Wpf Mvvm App (InjectX.Mvvm)
+### Wpf Mvvm App (InjectX + InjectX.Mvvm)
 
 ```csharp
 // MyWpfApp/App.xaml.cs
