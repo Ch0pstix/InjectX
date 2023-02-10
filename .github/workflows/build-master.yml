@@ -1,0 +1,48 @@
+name: Build (Master)
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: ${{ !contains(github.event.head_commit.message, '--nobuild') }}
+    environment: production
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Initialize DotNet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+          
+      - name: Initialize NuGet
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+      
+      - name: Restore Dependencies
+        run: dotnet restore
+      
+      - name: Build Projects
+        run: dotnet build --configuration Release --no-restore --nologo
+      
+      - name: Run Tests
+        run: dotnet test --configuration Release --no-build --nologo
+      
+      - name: Publish NuGet Packages
+        run: |
+          nuget push src\InjectX.Shared\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX.Mvvm\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+      
+      - name: Publish NuGet Symbols
+        run: |
+          nuget push src\InjectX.Shared\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX.Mvvm\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
