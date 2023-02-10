@@ -39,12 +39,12 @@ dotnet add package InjectX.Mvvm
 
 ### Types
 
-| Name                                                                      | Description                                                                                                    |
-| ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| [SingletonAttribute](src/InjectX.Shared/SingletonAttribute.cs)            | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Singleton`. |
-| [TransientAttribute](src/InjectX.Shared/TransientAttribute.cs)            | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Transient`. |
-| [ScopedAttribute](src/InjectX.Shared/ScopedAttribute.cs)                  | Specifies that a service should be registered with a `ServiceLifetime` of `ServiceLifetime.Scoped`.            |
-| [ServiceRegistrationStrategy](src/InjectX/ServiceRegistrationStrategy.cs) | Specifies strategies that may be applied when adding a `ServiceDescriptor` to an `IServiceCollection`.         |
+| Name                                                           | Description                                                                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [SingletonAttribute](src/InjectX.Shared/SingletonAttribute.cs) | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Singleton`. |
+| [TransientAttribute](src/InjectX.Shared/TransientAttribute.cs) | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Transient`. |
+| [ScopedAttribute](src/InjectX.Shared/ScopedAttribute.cs)       | Specifies that a service should be registered with a `ServiceLifetime` of `ServiceLifetime.Scoped`.            |
+| [RegistrationStrategy](src/InjectX/RegistrationStrategy.cs)    | Specifies strategies that may be applied when adding a `ServiceDescriptor` to an `IServiceCollection`.         |
 
 ### Extension Methods
 
@@ -94,7 +94,7 @@ public class ExampleService : IExampleService
 
 ---
 
-### Wpf App (InjectX.Mvvm)
+### Wpf Mvvm App (InjectX.Mvvm)
 
 ```csharp
 // MyWpfApp/App.xaml.cs
