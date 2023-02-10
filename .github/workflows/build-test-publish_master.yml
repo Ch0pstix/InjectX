@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
       - uses: nuget/setup-nuget@v1
         with:
-          nuget-api-key: $NUGET_API_KEY
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       
       - name: Restore Dependencies
         run: dotnet restore
