@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33209.295
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "res", "res", "{66E61B2D-8FF6-4D3D-BC56-6A5DD6A033FE}"
+	ProjectSection(SolutionItems) = preProject
+		res\banner.png = res\banner.png
+		res\icon-mvvm.png = res\icon-mvvm.png
+		res\icon-shared.png = res\icon-shared.png
+		res\icon.png = res\icon.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7BC69022-3F04-4CBB-B876-AA14400D07D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InjectX", "src\InjectX\InjectX.csproj", "{7B534375-8370-4277-B4FE-82B5CE4DF674}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InjectX.Mvvm", "src\InjectX.Mvvm\InjectX.Mvvm.csproj", "{1026A3FB-C3A3-4D3D-83CF-BDCC9380F47D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InjectX.Shared", "src\InjectX.Shared\InjectX.Shared.csproj", "{11C4621A-26EB-4BEF-B200-68611EBBEA50}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{911C913A-856A-4F14-AA47-99130516F9A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InjectX.Tests", "tests\InjectX.Tests\InjectX.Tests.csproj", "{0B604BAC-021B-4A80-847F-322179798AB7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B534375-8370-4277-B4FE-82B5CE4DF674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B534375-8370-4277-B4FE-82B5CE4DF674}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B534375-8370-4277-B4FE-82B5CE4DF674}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B534375-8370-4277-B4FE-82B5CE4DF674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1026A3FB-C3A3-4D3D-83CF-BDCC9380F47D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1026A3FB-C3A3-4D3D-83CF-BDCC9380F47D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1026A3FB-C3A3-4D3D-83CF-BDCC9380F47D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1026A3FB-C3A3-4D3D-83CF-BDCC9380F47D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C4621A-26EB-4BEF-B200-68611EBBEA50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C4621A-26EB-4BEF-B200-68611EBBEA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C4621A-26EB-4BEF-B200-68611EBBEA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C4621A-26EB-4BEF-B200-68611EBBEA50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B604BAC-021B-4A80-847F-322179798AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B604BAC-021B-4A80-847F-322179798AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B604BAC-021B-4A80-847F-322179798AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B604BAC-021B-4A80-847F-322179798AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7B534375-8370-4277-B4FE-82B5CE4DF674} = {7BC69022-3F04-4CBB-B876-AA14400D07D0}
+		{1026A3FB-C3A3-4D3D-83CF-BDCC9380F47D} = {7BC69022-3F04-4CBB-B876-AA14400D07D0}
+		{11C4621A-26EB-4BEF-B200-68611EBBEA50} = {7BC69022-3F04-4CBB-B876-AA14400D07D0}
+		{0B604BAC-021B-4A80-847F-322179798AB7} = {911C913A-856A-4F14-AA47-99130516F9A5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87D15D23-2FA9-4AD6-B345-8E6789049C54}
+	EndGlobalSection
+EndGlobal
