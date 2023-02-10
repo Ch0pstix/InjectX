@@ -17,13 +17,13 @@ jobs:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore --verbosity normal
       
       - name: Build Projects
-        run: dotnet build --no-restore
+        run: dotnet build --verbosity normal --configuration Release --no-restore
       
       - name: Run Tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --verbosity normal --no-build
       
       - name: Publish packages to Nuget.org
         run: |
