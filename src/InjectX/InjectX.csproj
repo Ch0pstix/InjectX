@@ -26,9 +26,11 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <ImplicitUsings>enable</ImplicitUsings>
+    <IncludeSymbols>true</IncludeSymbols>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>InjectX</RootNamespace>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
   

@@ -26,9 +26,11 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <ImplicitUsings>enable</ImplicitUsings>
+    <IncludeSymbols>true</IncludeSymbols>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>InjectX.Mvvm</RootNamespace>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
