@@ -1,10 +1,8 @@
-# InjectX
+# InjectX · ![License](https://img.shields.io/github/license/Ch0pstix/InjectX?style=flat-square)
 
 ![InjectX Banner](/res/banner.png?raw=true)
 
 Automatic service registration extensions for `Microsoft.Extensions.DependencyInjection`.
-
-![License](https://img.shields.io/github/license/Ch0pstix/InjectX?style=flat)
 
 ## 🚀 Getting Started
 
@@ -14,11 +12,11 @@ The packages may be installed via Nuget, Package Manager Console, or DotNet CLI.
 
 - [InjectX][1]
 
-  ![Version](https://img.shields.io/nuget/v/InjectX?label=Version&style=flat) ![Downloads](https://img.shields.io/nuget/dt/InjectX?label=Downloads)
+  ![Version](https://img.shields.io/nuget/v/InjectX?label=Version&style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/InjectX?label=Downloads&style=flat-square)
 
 - [InjectX.Mvvm][2]
   
-  ![Version](https://img.shields.io/nuget/v/InjectX.Mvvm?label=Version&style=flat) ![Downloads](https://img.shields.io/nuget/dt/InjectX.Mvvm?label=Downloads)
+  ![Version](https://img.shields.io/nuget/v/InjectX.Mvvm?label=Version&style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/InjectX.Mvvm?label=Downloads&style=flat-square)
 
 [1]: https://www.nuget.org/packages/InjectX/
 [2]: https://www.nuget.org/packages/InjectX.Mvvm/
@@ -27,9 +25,6 @@ The packages may be installed via Nuget, Package Manager Console, or DotNet CLI.
 
 ```shell
 Install-Package InjectX
-```
-
-```shell
 Install-Package InjectX.Mvvm
 ```
 
@@ -37,29 +32,19 @@ Install-Package InjectX.Mvvm
 
 ```shell
 dotnet add package InjectX
-```
-
-```shell
 dotnet add package InjectX.Mvvm
 ```
 
 ## 📂 What's Included
 
-### Projects
-
-| Name                                | Description                                                                                                                                    |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| [InjectX](/src/InjectX)             | Contains automatic service registration extension methods for the `IServiceCollection`.                                                        |
-| [InjectX.Mvvm](/src/InjectX.Mvvm)   | Contains automatic view and viewmodel registration extension methods for the `IServiceCollection`. For wpf projects using mvvm architecture.   |
-
 ### Types
 
-| Name                                                                      | Description                                                                                                    |
-| ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| [SingletonAttribute](src/InjectX.Shared/SingletonAttribute.cs)            | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Singleton`. |
-| [TransientAttribute](src/InjectX.Shared/TransientAttribute.cs)            | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Transient`. |
-| [ScopedAttribute](src/InjectX.Shared/ScopedAttribute.cs)                  | Specifies that a service should be registered with a `ServiceLifetime` of `ServiceLifetime.Scoped`.            |
-| [ServiceRegistrationStrategy](src/InjectX/ServiceRegistrationStrategy.cs) | Specifies strategies that may be applied when adding a `ServiceDescriptor` to an `IServiceCollection`.         |
+| Name                                                           | Description                                                                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| [SingletonAttribute](src/InjectX.Shared/SingletonAttribute.cs) | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Singleton`. |
+| [TransientAttribute](src/InjectX.Shared/TransientAttribute.cs) | Specifies that a view or service should be registered with a `ServiceLifetime` of `ServiceLifetime.Transient`. |
+| [ScopedAttribute](src/InjectX.Shared/ScopedAttribute.cs)       | Specifies that a service should be registered with a `ServiceLifetime` of `ServiceLifetime.Scoped`.            |
+| [RegistrationStrategy](src/InjectX/RegistrationStrategy.cs)    | Specifies strategies that may be applied when adding a `ServiceDescriptor` to an `IServiceCollection`.         |
 
 ### Extension Methods
 
@@ -69,83 +54,75 @@ dotnet add package InjectX.Mvvm
 | [IServiceCollection.RegisterAssemblyServices(Assembly, optional: ServiceRegistrationStrategy)](src/InjectX/ServiceCollectionExtensions.cs) | Registers service objects that have been defined within the specified assembly.                |
 | [IServiceCollection.RegisterViewsAndViewModels()](src/InjectX.Mvvm/ServiceCollectionExtensions.cs)                                         | Registers view and viewmodel objects that have been defined within the application's assembly. |
 
-## 🪄 Example Usage
+## 💡 Usage Examples
 
 ### Console App (InjectX)
 
+#### MyConsoleApp/Program.cs
 ```csharp
-// ConsoleApp/Program.cs
+using MyConsoleApp.Services;
 
 var services = new ServiceCollection()
-  .RegisterApplicationServices() // from ConsoleApp.Services
+  .RegisterApplicationServices() // from MyConsoleApp.Services*
   .BuildServiceProvider();
 
 var service = services.GetRequiredService<IExampleService>();
 
-service.DoWork();
+service.SayHello();
 ```
 
+#### MyConsoleApp/Services/IExampleService.cs
 ```csharp
-// ConsoleApp/Services/IExampleService.cs
-
 public interface IExampleService()
 {
-  void DoWork();
+  void SayHello();
 }
 ```
 
+#### MyConsoleApp/Services/ExampleService.cs
 ```csharp
-// ConsoleApp/Services/ExampleService.cs
-
-// Compiled descriptor will be (IExampleService, ExampleService, ServiceLifetime.Transient)
-
-[Transient]
+[Transient] // Compiled descriptor will be (IExampleService, ExampleService, ServiceLifetime.Transient)
 public class ExampleService : IExampleService
 {
-  public void DoWork()
+  public void SayHello()
   {
     Console.WriteLine("Hello World");
   }
 }
 ```
 
-### WPF APP with Mvvm Architecture (InjectX.Mvvm)
+---
 
+### Wpf Mvvm App (InjectX + InjectX.Mvvm)
+
+#### MyWpfApp/App.xaml.cs:
 ```csharp
-// WPFApp/App.xaml.cs
-
-protected override void OnStartup(StartupEventArgs e)
+public partial class App : Application
 {
-  var services = new ServiceCollection()
-    .RegisterApplicationServices()  // from WPFApp.Services
-    .RegisterViewsAndViewModels() // from WPFApp.Views && WPFApp.ViewModels
-    .BuildServiceProvider();
+  protected override void OnStartup(StartupEventArgs e)
+  {
+    var services = new ServiceCollection()
+      .RegisterApplicationServices()  // from MyWpfApp.Services*
+      .RegisterViewsAndViewModels() // from MyWpfApp.Views* && MyWpfApp.ViewModels*
+      .BuildServiceProvider();
+      
+    var mainWindow = services.GetRequiredService<MainWindow>();
     
-  var mainWindow = services.GetRequiredService<MainWindow>();
-  
-  mainWindow.Show();
-  
-  base.OnStartup(e);
+    mainWindow.Show();
+    
+    base.OnStartup(e);
+  }
 }
 ```
 
+#### MyWpfApp/Views/Dialogs/MyCustomDialogWindow.cs:
 ```csharp
-// WPFApp/Views/MainWindow.cs
-
-public partial class MainWindow : Window
+[Transient] // Override the default singleton lifetime as dialogs tend to be reusable objects
+public partial class MyCustomDialogWindow : Window
 {
-  ...
-}
-```
-
-```csharp
-// WPFApp/Views/CustomDialogWindow.cs
-
-// Override the default lifetime as dialogs tend to be reusable objects
-
-[Transient] 
-public partial class CustomDialogWindow : Window
-{
-  ...
+  public MyCustomDialogWindow()
+  {
+    InitializeComponent();
+  }
 }
 ```
