@@ -58,11 +58,12 @@ dotnet add package InjectX.Mvvm
 
 ### Console App (InjectX)
 
+#### MyConsoleApp/Program.cs
 ```csharp
-// MyConsoleApp/Program.cs
+using MyConsoleApp.Services;
 
 var services = new ServiceCollection()
-  .RegisterApplicationServices() // from MyConsoleApp.Services
+  .RegisterApplicationServices() // from MyConsoleApp.Services*
   .BuildServiceProvider();
 
 var service = services.GetRequiredService<IExampleService>();
@@ -70,18 +71,16 @@ var service = services.GetRequiredService<IExampleService>();
 service.SayHello();
 ```
 
+#### MyConsoleApp/Services/IExampleService.cs
 ```csharp
-// MyConsoleApp/Services/IExampleService.cs
-
 public interface IExampleService()
 {
   void SayHello();
 }
 ```
 
+#### MyConsoleApp/Services/ExampleService.cs
 ```csharp
-// MyConsoleApp/Services/ExampleService.cs
-
 [Transient] // Compiled descriptor will be (IExampleService, ExampleService, ServiceLifetime.Transient)
 public class ExampleService : IExampleService
 {
@@ -96,31 +95,32 @@ public class ExampleService : IExampleService
 
 ### Wpf Mvvm App (InjectX + InjectX.Mvvm)
 
+#### MyWpfApp/App.xaml.cs:
 ```csharp
-// MyWpfApp/App.xaml.cs
-
-protected override void OnStartup(StartupEventArgs e)
+public partial class App : Application
 {
-  var services = new ServiceCollection()
-    .RegisterApplicationServices()  // from MyWpfApp.Services
-    .RegisterViewsAndViewModels() // from MyWpfApp.Views && MyWpfApp.ViewModels
-    .BuildServiceProvider();
+  protected override void OnStartup(StartupEventArgs e)
+  {
+    var services = new ServiceCollection()
+      .RegisterApplicationServices()  // from MyWpfApp.Services*
+      .RegisterViewsAndViewModels() // from MyWpfApp.Views* && MyWpfApp.ViewModels*
+      .BuildServiceProvider();
+      
+    var mainWindow = services.GetRequiredService<MainWindow>();
     
-  var mainWindow = services.GetRequiredService<MainWindow>();
-  
-  mainWindow.Show();
-  
-  base.OnStartup(e);
+    mainWindow.Show();
+    
+    base.OnStartup(e);
+  }
 }
 ```
 
+#### MyWpfApp/Views/Dialogs/MyCustomDialogWindow.cs:
 ```csharp
-// MyWpfApp/Views/CustomDialogWindow.cs
-
-[Transient] // Override the default lifetime as dialogs tend to be reusable objects
-public partial class CustomDialogWindow : Window
+[Transient] // Override the default singleton lifetime as dialogs tend to be reusable objects
+public partial class MyCustomDialogWindow : Window
 {
-  public CustomDialogWindow()
+  public MyCustomDialogWindow()
   {
     InitializeComponent();
   }
