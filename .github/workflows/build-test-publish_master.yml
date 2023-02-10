@@ -1,0 +1,38 @@
+name: CI/CD (Master)
+
+on:
+  push:
+    branches: [master]
+  
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: $NUGET_API_KEY
+      
+      - name: Restore Dependencies
+        run: dotnet restore
+      
+      - name: Build Projects
+        run: dotnet build --no-restore
+      
+      - name: Run Tests
+        run: dotnet test --no-build --verbosity normal
+      
+      - name: Publish packages to Nuget.org
+        run: |
+          nuget push src\InjectX.Shared\bin\Release\*.nupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
+          nuget push src\InjectX\bin\Release\*.nupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
+          nuget push src\InjectX.Mvvm\bin\Release\*.nupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
+      
+      - name: Publish symbols to Nuget.org
+        run: |
+          nuget push src\InjectX.Shared\bin\Release\*.snupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
+          nuget push src\InjectX\bin\Release\*.snupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
+          nuget push src\InjectX.Mvvm\bin\Release\*.snupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
