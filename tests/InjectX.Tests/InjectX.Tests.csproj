@@ -20,7 +20,7 @@
     <Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
     <Using Include="InjectX" />
     <Using Include="InjectX.Shared" />
-    <Using Include="InjectX.Tests.Services"/>
+    <Using Include="InjectX.Tests.Services" />
     <Using Include="Xunit" />
   </ItemGroup>
 
