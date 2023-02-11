@@ -15,6 +15,7 @@
   <!--  Package  -->
   <PropertyGroup>
     <PackageIcon>icon-mvvm.png</PackageIcon>
+    <PackageId>Ch0pstix.InjectX.Mvvm</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>assembly-scanning; automation; dependency-injection; dotnet; dotnet-core; mvvm; viewmodels; views;</PackageTags>

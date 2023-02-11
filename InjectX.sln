@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InjectX.Shared", "src\Injec
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{911C913A-856A-4F14-AA47-99130516F9A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InjectX.Tests", "tests\InjectX.Tests\InjectX.Tests.csproj", "{0B604BAC-021B-4A80-847F-322179798AB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InjectX.Tests", "tests\InjectX.Tests\InjectX.Tests.csproj", "{0B604BAC-021B-4A80-847F-322179798AB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
