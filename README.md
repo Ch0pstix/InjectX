@@ -10,29 +10,29 @@ The packages may be installed via Nuget, Package Manager Console, or DotNet CLI.
 
 ### Nuget
 
-- [InjectX][1]
+- [Ch0pstix.InjectX][1]
 
-  ![Version](https://img.shields.io/nuget/v/InjectX?label=Version&style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/InjectX?label=Downloads&style=flat-square)
+  ![Version](https://img.shields.io/nuget/v/Ch0pstix.InjectX?label=Version&style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/Ch0pstix.InjectX?label=Downloads&style=flat-square)
 
-- [InjectX.Mvvm][2]
+- [Ch0pstix.InjectX.Mvvm][2]
   
-  ![Version](https://img.shields.io/nuget/v/InjectX.Mvvm?label=Version&style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/InjectX.Mvvm?label=Downloads&style=flat-square)
+  ![Version](https://img.shields.io/nuget/v/Ch0pstix.InjectX.Mvvm?label=Version&style=flat-square) ![Downloads](https://img.shields.io/nuget/dt/Ch0pstix.InjectX.Mvvm?label=Downloads&style=flat-square)
 
-[1]: https://www.nuget.org/packages/InjectX/
-[2]: https://www.nuget.org/packages/InjectX.Mvvm/
+[1]: https://www.nuget.org/packages/Ch0pstix.InjectX/
+[2]: https://www.nuget.org/packages/Ch0pstix.InjectX.Mvvm/
 
 ### Package Manager Console
 
 ```shell
-Install-Package InjectX
-Install-Package InjectX.Mvvm
+Install-Package Ch0pstix.InjectX
+Install-Package Ch0pstix.InjectX.Mvvm
 ```
 
 ### DotNet CLI
 
 ```shell
-dotnet add package InjectX
-dotnet add package InjectX.Mvvm
+dotnet add package Ch0pstix.InjectX
+dotnet add package Ch0pstix.InjectX.Mvvm
 ```
 
 ## 📂 What's Included
