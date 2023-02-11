@@ -1,4 +1,4 @@
-name: CI/CD (Master)
+name: CI (Master)
 
 on:
   push:
@@ -12,30 +12,33 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
-      - uses: nuget/setup-nuget@v1
+      
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+          
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       
-      - name: Restore
-        run: dotnet restore --verbosity minimal
-        
-      - name: Clean
-        run: dotnet clean --configuration Release --nologo --verbosity minimal
+      - name: Restore Dependencies
+        run: dotnet restore
       
       - name: Build
-        run: dotnet build --configuration Release --no-restore --nologo --verbosity minimal
+        run: dotnet build --configuration Release --no-restore --nologo
       
       - name: Test
-        run: dotnet test --configuration Release --no-build --nologo --norestore --verbosity minimal
+        run: dotnet test --configuration Release --no-build --nologo
       
-      - name: Publish (Packages)
+      - name: Publish NuGet Packages
         run: |
           nuget push src\InjectX.Shared\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
           nuget push src\InjectX\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
           nuget push src\InjectX.Mvvm\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
       
-      - name: Publish (Symbols)
+      - name: Publish NuGet Symbols
         run: |
           nuget push src\InjectX.Shared\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
           nuget push src\InjectX\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
