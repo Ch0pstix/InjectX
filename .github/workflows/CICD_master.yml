@@ -11,29 +11,35 @@ jobs:
     environment: production
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
-      - uses: nuget/setup-nuget@v1
-        with:
-          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+      - name: Setup
+        uses: | 
+          actions/checkout@v3
+          actions/setup-dotnet@v3
+          nuget/setup-nuget@v1
+            with:
+              nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       
-      - name: Restore Dependencies
-        run: dotnet restore --verbosity normal --nologo
       
-      - name: Build Projects
-        run: dotnet build --verbosity normal --configuration Release --no-restore --nologo
+      - name: Restore
+        run: dotnet restore --v minimal
+        
+      - name: Clean
+        run: dotnet clean --c Release --nologo --v minimal
       
-      - name: Run Tests
-        run: dotnet test --verbosity normal --configuration Release --no-build --nologo
+      - name: Build
+        run: dotnet build --c Release --no-restore --nologo --v minimal
       
-      - name: Publish packages to Nuget.org
+      - name: Test
+        run: dotnet test --c Release --no-build --nologo --norestore --v minimal
+      
+      - name: Publish (Packages)
         run: |
-          nuget push src\InjectX.Shared\bin\Release\*.nupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
-          nuget push src\InjectX\bin\Release\*.nupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
-          nuget push src\InjectX.Mvvm\bin\Release\*.nupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
+          nuget push src\InjectX.Shared\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX.Mvvm\bin\Release\*.nupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
       
-      - name: Publish symbols to Nuget.org
+      - name: Publish (Symbols)
         run: |
-          nuget push src\InjectX.Shared\bin\Release\*.snupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
-          nuget push src\InjectX\bin\Release\*.snupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
-          nuget push src\InjectX.Mvvm\bin\Release\*.snupkg -NonInteractive -SkipDuplicate -Source 'https://api.nuget.org/v3/index.json'
+          nuget push src\InjectX.Shared\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
+          nuget push src\InjectX.Mvvm\bin\Release\*.snupkg -NonInteractive -Source 'https://api.nuget.org/v3/index.json' -SkipDuplicate
