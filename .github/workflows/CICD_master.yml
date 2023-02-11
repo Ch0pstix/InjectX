@@ -12,12 +12,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Setup
-        uses: | 
-          actions/checkout@v3
-          actions/setup-dotnet@v3
-          nuget/setup-nuget@v1
-            with:
-              nuget-api-key: ${{ secrets.NUGET_API_KEY }}
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
       
       
       - name: Restore
