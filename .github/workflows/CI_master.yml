@@ -11,7 +11,8 @@ jobs:
     environment: production
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Perform Checkout
+        uses: actions/checkout@v3
       
       - name: Setup DotNet
         uses: actions/setup-dotnet@v3
