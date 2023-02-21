@@ -1,4 +1,4 @@
-﻿namespace InjectX.Shared;
+﻿namespace InjectX;
 
 /// <summary>
 /// The exception that is thrown when registering a service with an invalid <see cref="ServiceLifetime"/>.

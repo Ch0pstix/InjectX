@@ -1,4 +1,4 @@
-﻿namespace InjectX.Shared;
+﻿namespace InjectX.Internal;
 
 /// <summary>
 /// Used to verify the state of various objects.

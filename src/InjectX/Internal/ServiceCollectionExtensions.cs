@@ -1,7 +1,7 @@
-﻿namespace InjectX.Shared;
+﻿namespace InjectX.Internal;
 
 /// <summary>
-/// Defines extension methods for <see cref="IServiceCollection"/>.
+/// Internal extension methods for <see cref="IServiceCollection"/>.
 /// </summary>
 internal static class ServiceCollectionExtensions
 {

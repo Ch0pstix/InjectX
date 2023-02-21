@@ -78,7 +78,7 @@ public static class ServiceCollectionExtensions
                     .FirstOrDefault()
                     ?? implementationType;
 
-                ServiceLifetime lifetime = implementationType.GetCustomAttribute<LifetimeAttribute>()?.Lifetime
+                ServiceLifetime lifetime = implementationType.GetCustomAttribute<DescriptorAttribute>()?.Lifetime
                     ?? ServiceLifetime.Transient;
 
                 ServiceDescriptor descriptor = ServiceDescriptor.Describe(serviceType, implementationType, lifetime);

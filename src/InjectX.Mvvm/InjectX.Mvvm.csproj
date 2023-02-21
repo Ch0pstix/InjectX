@@ -73,8 +73,5 @@
   </ItemGroup>
 
   <!--  Project References  -->
-  <ItemGroup>
-    <ProjectReference Include="..\InjectX.Shared\InjectX.Shared.csproj" />
-  </ItemGroup>
 
 </Project>

@@ -11,8 +11,7 @@ public static class ServiceCollectionExtensions
     /// <remarks>
     /// Below are the default lifetimes for views and viewmodel objects:
     /// <list type="bullet">
-    /// <item>View (inheriting <see cref="Window"/>) - <see cref="ServiceLifetime.Singleton"/></item>
-    /// <item>View (inheriting <see cref="Page"/>) - <see cref="ServiceLifetime.Transient"/></item>
+    /// <item>View <see cref="ServiceLifetime.Transient"/></item>
     /// <item>Viewmodel - <see cref="ServiceLifetime.Transient"/></item>
     /// </list>
     /// The lifetime for a view object may be overridden by annotating it with one of the following attributes:
@@ -46,13 +45,8 @@ public static class ServiceCollectionExtensions
             .Where(type => type.Namespace!.StartsWith($"{rootNamespace}.Views", StringComparison.Ordinal))
             .ForEach(view =>
             {
-                bool isWindow = view.IsDerivedFrom<Window>();
-                bool isPage = view.IsDerivedFrom<Page>();
-
-                if (!isWindow && !isPage) return;
-
-                ServiceLifetime lifetime = view.GetCustomAttribute<LifetimeAttribute>()?.Lifetime
-                    ?? (isWindow ? ServiceLifetime.Singleton : ServiceLifetime.Transient);
+                ServiceLifetime lifetime = view.GetCustomAttribute<DescriptorAttribute>()?.Lifetime
+                    ?? ServiceLifetime.Transient;
 
                 Verify.ValidLifetimeForView(view, lifetime);
                 services.TryAddWithLifetime(view, lifetime);

@@ -1,4 +1,4 @@
-﻿namespace InjectX.Shared;
+﻿namespace InjectX;
 
 /// <summary>
 /// The exception that is thrown when adding a duplicate <see cref="ServiceDescriptor"/> to an <see cref="IServiceCollection"/>.

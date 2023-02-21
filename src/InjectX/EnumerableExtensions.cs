@@ -1,4 +1,4 @@
-﻿namespace InjectX.Shared;
+﻿namespace InjectX;
 
 /// <summary>
 /// Provides extension methods for the <see cref="IEnumerable{T}"/> class.

@@ -1,4 +1,4 @@
-﻿namespace InjectX.Shared;
+﻿namespace InjectX;
 
 /// <summary>
 /// Defines extension methods for <see cref="System.Reflection"/>.
