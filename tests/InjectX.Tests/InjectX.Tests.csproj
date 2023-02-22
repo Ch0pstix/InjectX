@@ -19,7 +19,7 @@
     <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
     <Using Include="InjectX" />
-    <Using Include="InjectX.Shared" />
+    <Using Include="InjectX.Exceptions" />
     <Using Include="InjectX.Tests.Services" />
     <Using Include="Xunit" />
   </ItemGroup>
