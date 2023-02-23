@@ -1,4 +1,4 @@
-﻿namespace InjectX.Internals;
+﻿namespace InjectX.Internals.Helpers;
 
 [DebuggerStepThrough]
 internal static partial class Verify

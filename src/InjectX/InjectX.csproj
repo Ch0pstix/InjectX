@@ -61,6 +61,7 @@
     <Using Include="Microsoft.Extensions.Internal" />
     <Using Include="InjectX.Exceptions" />
     <Using Include="InjectX.Internals" />
+    <Using Include="InjectX.Internals.Helpers" />
     <Using Alias="SR" Include="InjectX.Resources.Strings" />
   </ItemGroup>
 
