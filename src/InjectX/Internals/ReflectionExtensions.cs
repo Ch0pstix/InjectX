@@ -11,26 +11,34 @@ internal static class ReflectionExtensions
             ?? assembly.GetName().Name;
     }
 
+    internal static IEnumerable<T> FilterBy<T>(this IEnumerable<T> source, params Predicate<T>[] predicates)
+        where T : class
+    {
+
+    }
+
+    internal static IEnumerable<Type> GetBaseTypes(this Type type)
+    {
+        foreach (Type contract in type.GetInterfaces())
+            yield return contract;
+
+        Type baseType = type.BaseType;
+
+        while (baseType is not null)
+        {
+            yield return baseType;
+            baseType = baseType.BaseType;
+        }
+    }
+
     internal static string GetDisplayName(this Type type)
     {
         return TypeNameHelper.GetTypeDisplayName(type, includeGenericParameters: true);
     }
 
-    internal static bool IsInNamespace(this Type type, string ns, bool rootOnly = false)
-    {
-        string typeNs = type.Namespace ?? string.Empty;
-
-        if (typeNs.Length < ns.Length)
-            return false;
-
-        return rootOnly
-            ? typeNs.Equals(ns, StringComparison.Ordinal)
-            : typeNs.StartsWith(ns, StringComparison.Ordinal);
-    }
-
     internal static bool HasAttribute(this Type type, Type attributeType)
     {
-        return type.IsDefined(attributeType, true);
+        return type.IsDefined(attributeType, inherit: true);
     }
 
     internal static bool HasAttribute<T>(this Type type)
@@ -39,17 +47,31 @@ internal static class ReflectionExtensions
         return type.HasAttribute(typeof(T));
     }
 
-    internal static bool IsUserDefinedType(this Type type)
+    internal static bool IsInNamespace(this Type type, string @namespace, bool rootOnly = false)
     {
-        return !type.HasAttribute<CompilerGeneratedAttribute>();
+        string typeNamespace = type.Namespace ?? string.Empty;
+
+        if (typeNamespace.Length < @namespace.Length)
+            return false;
+
+        return rootOnly
+            ? typeNamespace.Equals(@namespace, StringComparison.Ordinal)
+            : typeNamespace.StartsWith(@namespace, StringComparison.Ordinal);
     }
 
-    internal static bool IsBasedOn(this Type type, Type candidate)
+    internal static bool IsAbstractOrInterface(this Type type)
     {
-        return candidate.IsAssignableFrom(type);
+        return type.IsClass && !type.IsAbstract;
     }
 
-    internal static bool IsAssignableToGenericTypeDefinition(this Type type, Type genericType)
+    internal static bool IsBasedOn(this Type type, Type otherType)
+    {
+        return otherType.IsGenericTypeDefinition
+            ? type.IsAssignableToGenericTypeDefinition(otherType)
+            : otherType.IsAssignableFrom(type);
+    }
+
+    private static bool IsAssignableToGenericTypeDefinition(this Type type, Type genericType)
     {
         foreach (Type contract in type.GetInterfaces())
         {
@@ -68,19 +90,5 @@ internal static class ReflectionExtensions
 
         return type.BaseType is Type baseType 
             && baseType.IsAssignableToGenericTypeDefinition(genericType);
-    }
-
-    internal static IEnumerable<Type> GetBaseTypes(this Type type)
-    {
-        foreach (Type contract in type.GetInterfaces())
-            yield return contract;
-
-        Type baseType = type.BaseType;
-
-        while (baseType is not null)
-        {
-            yield return baseType;
-            baseType = baseType.BaseType;
-        }
     }
 }

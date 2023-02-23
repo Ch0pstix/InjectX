@@ -55,36 +55,43 @@ public static class ServiceCollectionExtensions
         Verify.NotNull(services);
         Verify.NotNull(assembly);
 
-        string rootNamespace = assembly.GetRootNamespace();
-        strategy ??= RegistrationStrategy.Append;
+        strategy ??= RegistrationStrategy.Append; // Default when not specified
 
         assembly
             .GetTypes()
-            .Where(type => 
-                type.IsPublic && 
-                type.Namespace is not null &&
-                type.Namespace.Equals($"{rootNamespace}.Services", StringComparison.Ordinal))
-            .Fork(type => 
-                type.IsInterface, 
-                out IEnumerable<Type> serviceTypes, 
-                out IEnumerable<Type> implementationTypes);
+            .Where(type =>
+               !type.HasAttribute<CompilerGeneratedAttribute>() &&
+               !type.HasAttribute<SkipRegistrationAttribute>() &&
+               !type.IsAbstractOrInterface() &&
+               (type.Namespace?.MatchesPattern("+.Services|+.Services.*") ?? false));
 
-        implementationTypes
-            .ForEach(implementationType =>
-            {
-                Type serviceType = implementationType
-                    .GetInterfaces()
-                    .Where(contract => serviceTypes.Contains(contract))
-                    .FirstOrDefault()
-                    ?? implementationType;
+        //assembly
+        //    .GetTypes()
+        //    .Where(type => 
+        //        type.IsPublic && 
+        //        type.Namespace is not null &&
+        //        type.Namespace.Equals($"{rootNamespace}.Services", StringComparison.Ordinal))
+        //    .Fork(type => 
+        //        type.IsInterface, 
+        //        out IEnumerable<Type> serviceTypes, 
+        //        out IEnumerable<Type> implementationTypes);
 
-                ServiceLifetime lifetime = implementationType.GetCustomAttribute<ServiceDescriptorAttribute>()?.Lifetime
-                    ?? ServiceLifetime.Transient;
+        //implementationTypes
+        //    .ForEach(implementationType =>
+        //    {
+        //        Type serviceType = implementationType
+        //            .GetInterfaces()
+        //            .Where(contract => serviceTypes.Contains(contract))
+        //            .FirstOrDefault()
+        //            ?? implementationType;
 
-                ServiceDescriptor descriptor = ServiceDescriptor.Describe(serviceType, implementationType, lifetime);
+        //        ServiceLifetime lifetime = implementationType.GetCustomAttribute<ServiceDescriptorAttribute>()?.Lifetime
+        //            ?? ServiceLifetime.Transient;
 
-                strategy.Execute(services, descriptor);
-            });
+        //        ServiceDescriptor descriptor = ServiceDescriptor.Describe(serviceType, implementationType, lifetime);
+
+        //        strategy.Execute(services, descriptor);
+        //    });
 
         return services;
     }
