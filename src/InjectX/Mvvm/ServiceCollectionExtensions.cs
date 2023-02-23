@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterViewsAndViewModels(this IServiceCollection services)
     {
         Verify.NotNull(services);
-        Verify.AppDomainExists();
+        Verify.NotUnmanagedCall();
 
         Assembly assembly = Assembly.GetEntryAssembly()!;
         string rootNamespace = assembly.GetRootNamespace();
@@ -45,10 +45,9 @@ public static class ServiceCollectionExtensions
             .Where(type => type.Namespace!.StartsWith($"{rootNamespace}.Views", StringComparison.Ordinal))
             .ForEach(view =>
             {
-                ServiceLifetime lifetime = view.GetCustomAttribute<DescriptorAttribute>()?.Lifetime
+                ServiceLifetime lifetime = view.GetCustomAttribute<ServiceDescriptorAttribute>()?.Lifetime
                     ?? ServiceLifetime.Transient;
 
-                Verify.ValidLifetimeForView(view, lifetime);
                 services.TryAddWithLifetime(view, lifetime);
             });
 

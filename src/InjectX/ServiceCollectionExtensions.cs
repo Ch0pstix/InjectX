@@ -26,7 +26,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services, RegistrationStrategy? strategy = null)
     {
         Verify.NotNull(services);
-        Verify.AppDomainExists();
+        Verify.NotUnmanagedCall();
 
         return services.RegisterAssemblyServices(Assembly.GetEntryAssembly(), strategy);
     }
@@ -78,7 +78,7 @@ public static class ServiceCollectionExtensions
                     .FirstOrDefault()
                     ?? implementationType;
 
-                ServiceLifetime lifetime = implementationType.GetCustomAttribute<DescriptorAttribute>()?.Lifetime
+                ServiceLifetime lifetime = implementationType.GetCustomAttribute<ServiceDescriptorAttribute>()?.Lifetime
                     ?? ServiceLifetime.Transient;
 
                 ServiceDescriptor descriptor = ServiceDescriptor.Describe(serviceType, implementationType, lifetime);
