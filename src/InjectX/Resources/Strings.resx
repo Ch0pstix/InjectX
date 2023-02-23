@@ -125,7 +125,7 @@
     <value>Unable to resolve the root namespace for assembly '{0}'.</value>
     <comment>{0} = assembly</comment>
   </data>
-  <data name="UnmanagedCall" xml:space="preserve">
-    <value>Unable to perform registration from unmanaged code. Please call this method from the application assembly.</value>
+  <data name="NonApplicationContext" xml:space="preserve">
+    <value>Unable to perform call from non-application code. Calls to this method are only available from within the application assembly.</value>
   </data>
 </root>

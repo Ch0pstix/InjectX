@@ -25,7 +25,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterViewsAndViewModels(this IServiceCollection services)
     {
         Verify.NotNull(services);
-        Verify.NotUnmanagedCall();
+        Verify.ApplicationContext();
 
         Assembly assembly = Assembly.GetEntryAssembly()!;
         string rootNamespace = assembly.GetRootNamespace();

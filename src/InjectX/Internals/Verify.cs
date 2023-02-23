@@ -3,10 +3,10 @@
 [DebuggerStepThrough]
 internal static partial class Verify
 {
-    internal static void NotUnmanagedCall()
+    internal static void ApplicationContext()
     {
         if (Assembly.GetEntryAssembly() is null)
-            ThrowInvalidOperation(SR.UnmanagedCall);
+            ThrowInvalidOperation(SR.NonApplicationContext);
     }
 
     internal static void NotNull<T>([NotNull] T? argument, [CallerArgumentExpression(nameof(argument))] string paramName = "")

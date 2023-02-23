@@ -26,7 +26,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection RegisterApplicationServices(this IServiceCollection services, RegistrationStrategy? strategy = null)
     {
         Verify.NotNull(services);
-        Verify.NotUnmanagedCall();
+        Verify.ApplicationContext();
 
         return services.RegisterAssemblyServices(Assembly.GetEntryAssembly(), strategy);
     }

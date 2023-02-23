@@ -79,11 +79,11 @@ namespace InjectX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to perform registration from unmanaged code. Please call this method from the application assembly..
+        ///   Looks up a localized string similar to Unable to perform call from non-application code. Calls to this method are only available from within the application assembly..
         /// </summary>
-        internal static string UnmanagedCall {
+        internal static string NonApplicationContext {
             get {
-                return ResourceManager.GetString("UnmanagedCall", resourceCulture);
+                return ResourceManager.GetString("NonApplicationContext", resourceCulture);
             }
         }
     }
