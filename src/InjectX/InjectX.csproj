@@ -4,35 +4,41 @@
   
   <!--  Assembly  -->
   <PropertyGroup>
-    <Authors>Ch0pstix</Authors>
-    <Copyright>© Isaac Bickel 2022</Copyright>
-    <Description>Automatic service registration extensions for Microsoft.Extensions.DependencyInjection.</Description>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <Title>InjectX</Title>
-    <Version>2.0.0</Version>
-  </PropertyGroup>
-  
-  <!--  Package  -->
-  <PropertyGroup>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageId>Ch0pstix.InjectX</PackageId>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>assembly-scanning; automation; dependency-injection; dotnet; dotnet-standard; services;</PackageTags>
-  </PropertyGroup>
-  
-  <!--  Project  -->
-  <PropertyGroup>
     <AssemblyName>InjectX</AssemblyName>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <ImplicitUsings>enable</ImplicitUsings>
     <IncludeSymbols>true</IncludeSymbols>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <RootNamespace>InjectX</RootNamespace>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <!--  Only increment for incompatible API changes  -->
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+
+  <!--  Build  -->
+  <PropertyGroup>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <!--  Package  -->
+  <PropertyGroup>
+    <Authors>Ch0pstix</Authors>
+    <Copyright>© Isaac Bickel 2023</Copyright>
+    <Description>Automatic registration extensions for Microsoft.Extensions.DependencyInjection.</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageId>Ch0pstix.InjectX</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseUrl>https://github.com/Ch0pstix/InjectX/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Ch0pstix/InjectX</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>assembly-scanning;automation;conventions;dependency-injection;dotnet-standard;mvvm;services</PackageTags>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Title>InjectX</Title>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
   </PropertyGroup>
   
   <!--  Repository  -->
@@ -45,14 +51,35 @@
 
   <!--  Global Usings  -->
   <ItemGroup>
+    <Using Include="System.Diagnostics" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
     <Using Include="System.Reflection" />
     <Using Include="System.Runtime.CompilerServices" />
+    <Using Include="System.Text" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="Microsoft.Extensions.DependencyInjection.Extensions" />
-    <Using Include="InjectX.Internal" />
+    <Using Include="Microsoft.Extensions.Internal" />
+    <Using Include="InjectX.Exceptions" />
+    <Using Include="InjectX.Internals" />
+    <Using Alias="SR" Include="InjectX.Resources.Strings" />
   </ItemGroup>
 
-  <!--  Included Items  -->
+  <!--  Included Resources  -->
+  <ItemGroup>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
@@ -74,7 +101,7 @@
   <!--  Package References  -->
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     <PackageReference Include="PolySharp" Version="1.12.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
