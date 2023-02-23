@@ -5,9 +5,10 @@ internal static class ReflectionExtensions
 {
     internal static string GetRootNamespace(this Assembly assembly)
     {
+        // Try to get the root namespace from the entry point type first to handle
+        // cases where the assembly naming differs from the namespace structure.
         return assembly.EntryPoint?.DeclaringType?.Namespace
-            ?? assembly.GetName().Name
-            ?? throw new InvalidOperationException(SR.NamespaceResolutionFailure.Format(assembly));
+            ?? assembly.GetName().Name;
     }
 
     internal static string GetDisplayName(this Type type)
