@@ -83,7 +83,9 @@ public abstract class RegistrationStrategy
         {
             Verify.NotNull(services);
             Verify.NotNull(descriptor);
-            Verify.UniqueDescriptor(descriptor, services);
+
+            if (services.Any(d => d.ServiceType == descriptor.ServiceType))
+                throw new DuplicateServiceException(services, descriptor);
 
             services.Add(descriptor);
         }
