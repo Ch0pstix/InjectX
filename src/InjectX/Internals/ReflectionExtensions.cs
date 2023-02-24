@@ -11,12 +11,6 @@ internal static class ReflectionExtensions
             ?? assembly.GetName().Name;
     }
 
-    internal static IEnumerable<T> FilterBy<T>(this IEnumerable<T> source, params Predicate<T>[] predicates)
-        where T : class
-    {
-
-    }
-
     internal static IEnumerable<Type> GetBaseTypes(this Type type)
     {
         foreach (Type contract in type.GetInterfaces())
