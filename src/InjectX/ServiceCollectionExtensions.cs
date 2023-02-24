@@ -63,7 +63,8 @@ public static class ServiceCollectionExtensions
                !type.HasAttribute<CompilerGeneratedAttribute>() &&
                !type.HasAttribute<SkipRegistrationAttribute>() &&
                !type.IsAbstractOrInterface() &&
-               (type.Namespace?.MatchesPattern("+.Services|+.Services.*") ?? false));
+               type.Namespace is not null &&
+               type.Namespace.Matches("*+.([Ss]ervices|SERVICES)(.*+)?"));
 
         //assembly
         //    .GetTypes()
