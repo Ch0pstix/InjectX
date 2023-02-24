@@ -10,18 +10,15 @@ internal static partial class StringExtensions
             return false;
 
         int sIndex = 0, pIndex = 0;
-        bool inPatternGroup = false;
-        SimpleRange? pGroupRange = null;
 
-        while (sIndex < str.Length)
+        for (;pIndex < pattern.Length; pIndex++)
         {
             char token = pattern[pIndex];
-            char chr = str[sIndex];
 
             if (token is Token.PatternGroupStart)
             {
-                pGroupRange = new(pIndex, pattern.IndexOf(Token.PatternGroupEnd, pIndex));
-                string patternGroup = pattern.Substring(pGroupRange.Start + 1, pGroupRange.Length - 1);
+                SimpleRange pGroupRange = new(pIndex, pattern.IndexOf(Token.PatternGroupEnd, pIndex));
+                return Matches(str[sIndex..(sIndex + pGroupRange.Length - 1)], pattern[(pGroupRange.Start + 1)..(pGroupRange.Length - 1)]);
             }
             else if (token is Token.GroupStart)
             {
@@ -33,28 +30,60 @@ internal static partial class StringExtensions
 
                 sIndex++;
                 pIndex = groupRange.End + 1;
-                continue;
             }
             else if (token is Token.Wildcard)
             {
+                char chr = str[sIndex];
+
                 if (!(chr.IsAsciiAlphanumeric() || chr is '-' || chr is '_'))
                     return false;
 
                 sIndex++;
-                pIndex++;
-                continue;
             }
             else if (token is Token.ZeroPlus)
             {
+                int matchCount = 0;
+                char prevToken = pIndex - 1 > 0 ? pattern[pIndex - 1] : char.MinValue;
 
+                if (prevToken is char.MinValue)
+                    return false;
+
+                while (true)
+                {
+                    if (!Matches(str[sIndex..(sIndex + 1)], prevToken.ToString()))
+                    {
+                        if (matchCount is 0)
+                            return false;
+                        else break;
+                    }    
+
+                    sIndex++;
+                    matchCount++;
+                }
             }
             else if (token is Token.OnePlus)
             {
+                int matchCount = 0;
+                char prevToken = pIndex - 1 > 0 ? pattern[pIndex - 1] : char.MinValue;
 
+                if (prevToken is char.MinValue)
+                    return false;
+
+                while (true)
+                {
+                    if (!Matches(str[sIndex..(sIndex + 1)], prevToken.ToString()))
+                        break;
+
+                    sIndex++;
+                    matchCount++;
+                }
+
+                if (matchCount is not >= 1)
+                    return false;
             }
             else if (token is Token.Or)
             {
-
+                return Matches(str, pattern[++pIndex..]);
             }
             else // Literal
             {
